@@ -126,11 +126,11 @@
     chart.data(chartList);
 
     // Step 3: 创建图形语法，绘制柱状图
-    chart.line().position(`${dateMap[chartList[0].type]}*num`).label('value').shape('smooth');
+    chart.line().position(dateMap[chartList[0].type] + '*num').label('value').shape('smooth');
 
     chart.axis('num', {label: null}); // 隐藏 y 轴 label
 
-    chart.axis(`${dateMap[chartList[0].type]}`, {
+    chart.axis(dateMap[chartList[0].type], {
         label: {
             // 如果是 今日，只显示 day，如果 周 月 ，则显示 month-day
             formatter: (text) => {
