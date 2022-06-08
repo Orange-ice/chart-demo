@@ -133,7 +133,7 @@
     chart.axis(dateMap[chartList[0].type], {
         label: {
             // 如果是 今日，只显示 day，如果 周 月 ，则显示 month-day
-            formatter: (text) => {
+            formatter: function (text) {
                 // 处理当月份年份为负数的情况
                 const fitMap = {
                     2: 52,
