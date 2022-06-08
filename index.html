@@ -140,7 +140,7 @@
                     3: 12
                 };
                 const newText = Number(text) <= 0 ? (Number(text) + Number(fitMap[chartList[0].type])) : text;
-                return chartList[0]?.type === 1 ? text.split('-')[2] : newText;
+                return chartList[0].type === 1 ? text.split('-')[2] : newText;
             }
         }
     });
