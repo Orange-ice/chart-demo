@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="container"></div>
+<script src="https://cdn.bootcdn.net/ajax/libs/antv-g2/4.1.35/g2.min.js"></script>
+<script>
+    console.log(G2)
+    const chartList =  [
+        {
+            'searchKey': null,
+            'key': null,
+            'countDate': '2022-06-08',
+            'type': 1,
+            'month': null,
+            'week': null,
+            'year': null,
+            'num': 3,
+            'status': null,
+            'createTime': null,
+            'updateTime': null
+        },
+        {
+            'searchKey': null,
+            'key': '26812a3b5fbea83b89ae661f8b56525b',
+            'countDate': '2022-06-07',
+            'type': 1,
+            'month': 6,
+            'week': 23,
+            'year': 2022,
+            'num': 5,
+            'status': 1,
+            'createTime': '2022-06-07T17:00:00',
+            'updateTime': '2022-06-07T17:00:00'
+        },
+        {
+            'searchKey': null,
+            'key': 'b095d2dd336decd28a06b2737e51a55a',
+            'countDate': '2022-06-06',
+            'type': 1,
+            'month': 6,
+            'week': 23,
+            'year': 2022,
+            'num': 6,
+            'status': 1,
+            'createTime': '2022-06-06T17:00:00',
+            'updateTime': '2022-06-06T17:00:00'
+        },
+        {
+            'searchKey': null,
+            'key': 'e1763690e4801778df76062ac9c9ae58',
+            'countDate': '2022-06-05',
+            'type': 1,
+            'month': 6,
+            'week': 22,
+            'year': 2022,
+            'num': 2,
+            'status': 1,
+            'createTime': '2022-06-05T17:00:00',
+            'updateTime': '2022-06-05T17:00:00'
+        },
+        {
+            'searchKey': null,
+            'key': '89069b048c6939c9c46ea98f5a8eb851',
+            'countDate': '2022-06-04',
+            'type': 1,
+            'month': 6,
+            'week': 22,
+            'year': 2022,
+            'num': 1,
+            'status': 1,
+            'createTime': '2022-06-04T17:00:00',
+            'updateTime': '2022-06-04T17:00:00'
+        },
+        {
+            'searchKey': null,
+            'key': '244e215373f00faa84f1c409da51d3ad',
+            'countDate': '2022-06-03',
+            'type': 1,
+            'month': 6,
+            'week': 22,
+            'year': 2022,
+            'num': 0,
+            'status': 1,
+            'createTime': '2022-06-03T17:00:00',
+            'updateTime': '2022-06-03T17:00:00'
+        },
+        {
+            'searchKey': null,
+            'key': 'e8629a3c326ff1c6a92f6a008686aa8e',
+            'countDate': '2022-06-02',
+            'type': 1,
+            'month': 6,
+            'week': 22,
+            'year': 2022,
+            'num': 4,
+            'status': 1,
+            'createTime': '2022-06-02T17:00:00',
+            'updateTime': '2022-06-02T17:00:00'
+        }
+    ];
+    const dateMap = {
+        1: 'countDate',
+        2: 'week',
+        3: 'month'
+    };
+    const Chart = G2.Chart;
+
+    const chart = new Chart({
+        container: `container`, // 指定图表容器 ID
+        autoFit: true, // 宽度自适应
+        height: 60, // 指定图表高度
+    });
+
+    // x 轴节点显示个数
+    chart.scale('week', {
+        tickCount: 8
+    });
+    // Step 2: 载入数据源
+    chart.data(chartList);
+
+    // Step 3: 创建图形语法，绘制柱状图
+    chart.line().position(`${dateMap[chartList[0].type]}*num`).label('value').shape('smooth');
+
+    chart.axis('num', {label: null}); // 隐藏 y 轴 label
+
+    chart.axis(`${dateMap[chartList[0].type]}`, {
+        label: {
+            // 如果是 今日，只显示 day，如果 周 月 ，则显示 month-day
+            formatter: (text) => {
+                // 处理当月份年份为负数的情况
+                const fitMap = {
+                    2: 52,
+                    3: 12
+                };
+                const newText = Number(text) <= 0 ? (Number(text) + Number(fitMap[chartList[0].type])) : text;
+                return chartList[0]?.type === 1 ? text.split('-')[2] : newText;
+            }
+        }
+    });
+    // Step 4: 渲染图表
+    chart.render();
+</script>
+</body>
+</html>
